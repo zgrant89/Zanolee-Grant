@@ -12,7 +12,7 @@
     <header>
         <h1> Zanolee Grant</h1>
         <div class="description">
-            <p> Filmmaker, Archivist, Storyteller. <br>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <p> Filmmaker, Archivist, Storyteller.</p>
         </div>
     </header>
 
@@ -25,78 +25,59 @@
             <div class="about-content">
                 <h2>About</h2>
                 <div class="about-information">
-                    <p>Zanolee Grant is an independent filmmaker and researcher originally from Roatan, Honduras, based
-                        in
-                        South Florida. In her work, Grant utilizes qualitative methods and data such as oral history,
-                        family
-                        archives, and community-owned vernacular photography to explore themes such as migration,
-                        collective
-                        memory, and identity. </p>
-                    <div class="links">
-                        <span class="link"> LINKS HERE</span>
-                        <span class="link"> LINKS HERE</span>
-                        <span class="link"> LINKS HERE</span>
-                        <span class="link"> LINKS HERE</span>
-                    </div>
+                    <p>Zanolee Grant is an independent filmmaker and researcher from Roatán, Honduras, currently based
+                        in South Florida. In her work, Grant utilizes oral history, family archives, and community-owned
+                        vernacular photography to explore themes such as migration, collective memory, and identity.
+                    </p>
                 </div>
             </div>
         </section>
     </div>
 
     <section class="works" id="works">
-        <div class="works-header">
-            <h2>Works</h2>
-            <p>Check out some of my recent projects below. I enjoy working with multimedia and interactive content to
-                engage users.</p>
+        <div class="media-video">
+            <iframe
+                src="https://www.youtube-nocookie.com/embed/XrpuCVKsGAY?rel=0&modestbranding=1&iv_load_policy=3&color=white"
+                title="Zanolee Grant – Inheritance" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
         </div>
 
-        <div class="works-media">
-            <div class="work-item">
-                <div class="work-info">
-                    <h3> Project Title</h3>
-                </div>
-                <video controls>
-                    <source
-                        src="[https://www.w3schools.com/html/mov_bbb.mp4](https://www.w3schools.com/html/mov_bbb.mp4)"
-                        type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-            <div class="work-item">
-                <div class="work-info">
-                    <h3> Project Title</h3>
-                </div>
-                <video controls>
-                    <source
-                        src="[https://www.w3schools.com/html/mov_bbb.mp4](https://www.w3schools.com/html/mov_bbb.mp4)"
-                        type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-            <div class="work-item">
 
-                <div class="work-info">
-                    <h3> Project Title</h3>
-                </div>
-                <video controls>
-                    <source
-                        src="[https://www.w3schools.com/html/mov_bbb.mp4](https://www.w3schools.com/html/mov_bbb.mp4)"
-                        type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
+        <div class="bento">
+            <figure class="bento-item a">
+                <img src="zanolee_img.jpg" alt="Portrait of Zanolee Grant" loading="lazy">
+            </figure>
+            <figure class="bento-item b">
+                <img src="zanolee_img2.jpg" alt="Behind the scenes still" loading="lazy">
+            </figure>
+            <figure class="bento-item c">
+                <img src="zanolee_img3.jpg" alt="Production still" loading="lazy">
+            </figure>
         </div>
     </section>
 
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lb-btn lb-close" aria-label="Close (Esc)">✕</button>
+        <button class="lb-btn lb-prev" aria-label="Previous (←)">❮</button>
+        <img class="lightbox-image" alt="">
+        <button class="lb-btn lb-next" aria-label="Next (→)">❯</button>
+    </div>
+
     <section class="contact" id="contact">
         <h2>Contact</h2>
-        <p>If you'd like to get in touch, please fill out the form below and I'll respond as soon as possible.</p>
-        <form class="contact-form">
+        <p>If you'd like to get in touch, fill out the form below.</p>
+
+        <form class="contact-form" action="mailto:zanoleegrant@gmail.com?subject=Website%20Contact" method="post"
+            enctype="text/plain">
             <input type="text" name="name" placeholder="Your Name" required>
             <input type="email" name="email" placeholder="Your Email" required>
             <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
             <button type="submit">Send Message</button>
         </form>
+    </section>
+
+
     </section>
 
     <section class="footer">
@@ -111,6 +92,72 @@
             <p>+1 (555) 123-4567</p>
         </div>
     </section>
+    <script>
+        (function () {
+            const images = Array.from(document.querySelectorAll('.bento-item img'));
+            const lightbox = document.getElementById('lightbox');
+            const lbImg = lightbox.querySelector('.lightbox-image');
+            const btnClose = lightbox.querySelector('.lb-close');
+            const btnPrev = lightbox.querySelector('.lb-prev');
+            const btnNext = lightbox.querySelector('.lb-next');
+            let index = 0;
+
+            function openAt(i) {
+                index = i;
+                lbImg.src = images[index].src;
+                lbImg.alt = images[index].alt || '';
+                lightbox.classList.add('open');
+                lightbox.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden'; // lock scroll
+            }
+
+            function close() {
+                lightbox.classList.remove('open');
+                lightbox.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+                // Avoid showing previous image flash if source changes later
+                setTimeout(() => { lbImg.src = ''; }, 150);
+            }
+
+            function prev() {
+                index = (index - 1 + images.length) % images.length;
+                lbImg.src = images[index].src;
+                lbImg.alt = images[index].alt || '';
+            }
+
+            function next() {
+                index = (index + 1) % images.length;
+                lbImg.src = images[index].src;
+                lbImg.alt = images[index].alt || '';
+            }
+
+            images.forEach((img, i) => {
+                img.style.cursor = 'zoom-in';
+                img.addEventListener('click', () => openAt(i));
+                img.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') openAt(i);
+                });
+                img.tabIndex = 0; // keyboard focusable
+            });
+
+            btnClose.addEventListener('click', close);
+            btnPrev.addEventListener('click', prev);
+            btnNext.addEventListener('click', next);
+
+            lightbox.addEventListener('click', (e) => {
+                // click background closes
+                if (e.target === lightbox) close();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('open')) return;
+                if (e.key === 'Escape') close();
+                if (e.key === 'ArrowLeft') prev();
+                if (e.key === 'ArrowRight') next();
+            });
+        })();
+    </script>
+
 </body>
 
 </html>
